@@ -20,12 +20,22 @@ int main()
     cin >> n;
     cout << "Enter the numbers:\n";
     Node node(n);
+    int current;
+    if(n)
+    {
+        current = 0;
+    }
+    else
+    {
+        current = -1;
+    }
     //cout << node;
     system("clear");
     while (command != "STOP")
     {
         cout << node << endl;
-        cout << "1.Push_front\n2.Push_back\n3.Pop_front\n4.Pop_back\n5.Insert num\n6.Delete num\n7.Search number\n8.Delete num by value\n9.Concatenation\n10.Is_empty?\n11.STOP\n\n Choose the command:\n";
+        cout << "Current elem is: "<<current<< endl << endl;
+        cout << "1.Push_front\n2.Push_back\n3.Pop_front\n4.Pop_back\n5.Insert num\n6.Delete num\n7.Is_empty?\n8.STOP\n\n Choose the command:\n";
         cin >> w;
         if(int(w[0]) - 48 == 1 && w.size() == 1)
         {
@@ -33,6 +43,7 @@ int main()
             int elem;
             cin >> elem;
             node.Push_front(elem);
+            current++;
         }
 
 
@@ -48,12 +59,20 @@ int main()
         else if (int(w[0]) - 48 == 3 && w.size() == 1)
         {
             node.Pop_front();
+            if (current > 0)
+            {
+                current--;
+            }
         }
 
 
         else if (int(w[0]) - 48 == 4 && w.size() == 1)
         {
             node.Pop_back();
+            if (current == n-1)
+            {
+                current--;
+            }
         }
 
         else if (int(w[0]) - 48 == 5 && w.size() == 1)
@@ -61,59 +80,17 @@ int main()
             cout << "Enter the number which you want to insert:\n";
             int x;
             cin >> x;
-            cout << "Enter the index where you want it to put:\n";
-            int j;
-            cin >> j;
-            node.Insert(x,j);
+            node.Insert_current(x);
+            current++;
         }
 
         else if (int(w[0]) - 48 == 6 && w.size() == 1)
         {
-            cout << "Enter the index of the number which you want to delete:\n";
-            int j;
-            cin >> j;
-            node.Delete(j);
+            node.Delete_current();
+            current--;
         }
 
         else if (int(w[0]) - 48 == 7 && w.size() == 1)
-        {
-           cout << "Enter the number which you want to find:\n";
-            int x;
-            cin >> x;
-            int index = node.Search(x);
-            if(index >= 0)
-            {
-                cout << "Index of the first match:\n" << index;
-            }
-            else
-            {
-                cout << "No matches\n;";
-            }
-            sleep(5);
-        }
-
-        else if (int(w[0]) - 48 == 8 && w.size() == 1)
-        {
-            cout << "Enter the number which you want to find and delete:\n";
-            int x;
-            cin >> x;
-            node.Delete_value(x);
-        }
-
-        else if (int(w[0]) - 48 == 9 && w.size() == 1)
-        {
-            cout << "Enter the amount of numbers in the second node:\n";
-            int m;
-            cin >> m;
-            cout << "Enter the numbers of the second node:\n";
-            Node node2(m);
-            Node sum = (node + node2);
-            cout << "Result:\n";
-            cout << sum;
-            sleep(5);
-        }
-
-        else if (int(w[0]) - 48 == 1 && int(w[1]) - 48 == 0 && w.size() == 2)
         {
             if (node.Is_Empty())
             {
@@ -126,7 +103,7 @@ int main()
             sleep(2);
         }
 
-        else if (int(w[0]) - 48 == 1 && int(w[1]) - 48 == 1 && w.size() == 2)
+        else if (int(w[0]) - 48 == 8 && w.size() == 1)
         {
             command = "STOP";
             return 0;
