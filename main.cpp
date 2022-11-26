@@ -30,7 +30,7 @@ int main()
         current = -1;
     }
     //cout << node;
-    system("cls");
+    system("clear");
     while (command != "STOP")
     {
         cout << node << endl;
@@ -135,7 +135,7 @@ int main()
             cout << "strange command :/\n\n";
         }
 
-        system("cls");
+        system("clear");
     }
     return 0;
 }

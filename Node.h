@@ -19,10 +19,9 @@ struct Node_elem
 
 class Node
 {
-    //Node_elem* current;
+    Node_elem* current;
 public:
     Node_elem* Pnode;
-    Node_elem* current;
     Node()
     {
         Pnode = nullptr;
