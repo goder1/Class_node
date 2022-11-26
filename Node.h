@@ -19,10 +19,10 @@ struct Node_elem
 
 class Node
 {
-    Node_elem* current;
+    //Node_elem* current;
 public:
     Node_elem* Pnode;
-
+    Node_elem* current;
     Node()
     {
         Pnode = nullptr;
@@ -143,10 +143,19 @@ public:
     {
         if (Pnode->next != nullptr)
         {
-        Node_elem* ptr = Pnode->next;
-        ptr->prev = nullptr;
-        delete Pnode;
-        Pnode = ptr;
+            Node_elem* ptr = Pnode->next;
+            ptr->prev = nullptr;
+            if (current == Pnode)
+            {
+                delete Pnode;
+                Pnode = ptr;
+                current = ptr;
+            }
+            else
+            {
+                delete Pnode;
+                Pnode = ptr;
+            }
         }
         else
         {
@@ -165,8 +174,17 @@ public:
             {
                 ptr = ptr->next;
             }
-            delete ptr->next;
-            ptr->next = nullptr;
+            if (current == ptr->next)
+            {
+                current = ptr;
+                delete ptr->next;
+                ptr->next = nullptr;
+            }
+            else
+            {
+                delete ptr->next;
+                ptr->next = nullptr;
+            }
         }
         else
         {
@@ -183,6 +201,7 @@ public:
             current->prev->next = new Node_elem;
             current->prev->next->a = x;
             current->prev->next->next = current;
+            current->prev->next->prev = current->prev;
             current->prev = current->prev->next;
             cur++;
         }
@@ -190,17 +209,20 @@ public:
         {
             Node_elem* ptr = new Node_elem;
             ptr->a = x;
-            ptr->next = current;
+            ptr->next = Pnode;
             ptr->prev = nullptr;
-            current->prev = ptr;
+            Pnode->prev = ptr;
+            Pnode = ptr;
             cur++;
         }
         else if (current->prev != nullptr && current->next == nullptr)
         {
-            current->next = new Node_elem;
-            current->next->a = x;
-            current->next->next = nullptr;
-            current->next->prev = current;
+            current->prev->next = new Node_elem;
+            current->prev->next->a = x;
+            current->prev->next->next = current;
+            current->prev->next->prev = current->prev;
+            current->prev = current->prev->next;
+            cur++;
         }
         else if(current->prev == nullptr && current->next == nullptr)
         {
@@ -226,36 +248,33 @@ public:
     {
         if (current->prev != nullptr && current->next != nullptr)
         {
-            cout<<5;/*
             Node_elem* ptr1 = current->prev;
             Node_elem* ptr2 = current->next;
             delete current;
             ptr1->next = ptr2;
             ptr2->prev = ptr1;
-            current = ptr1;*/
+            current = ptr1;
         }
         else if (current->prev == nullptr && current->next != nullptr)
         {
-            cout<<4<<endl;/*
             Node_elem* ptr = Pnode->next;
             ptr->prev = nullptr;
             delete Pnode;
-            Pnode = ptr;*/
+            Pnode = ptr;
+            current = Pnode;
         }
         else if (current->prev != nullptr && current->next == nullptr)
         {
-            cout<<3;/*
             Node_elem* ptr = Pnode;
             while (ptr->next->next != nullptr)
             {
                 ptr = ptr->next;
             }
             delete ptr->next;
-            ptr->next = nullptr;*/
+            ptr->next = nullptr;
         }
         else if (current->prev == nullptr && current->next == nullptr && current != nullptr)
         {
-            cout<<9;
             delete current;
             Pnode = nullptr;
             current = nullptr;

@@ -30,7 +30,7 @@ int main()
         current = -1;
     }
     //cout << node;
-    system("clear");
+    system("cls");
     while (command != "STOP")
     {
         cout << node << endl;
@@ -96,10 +96,6 @@ int main()
             {
             current--;
             }
-            cout << node << endl;
-            cout << "Current elem is: "<<current<< endl << endl;
-            int sd;
-            cin>>sd;
         }
 
         else if (int(w[0]) - 48 == 7 && w.size() == 1)
@@ -139,7 +135,7 @@ int main()
             cout << "strange command :/\n\n";
         }
 
-        system("clear");
+        system("cls");
     }
     return 0;
 }
